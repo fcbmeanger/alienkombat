@@ -4,22 +4,22 @@ const scoreElement = document.getElementById('score');
 const tapButton = document.getElementById('tapButton');
 const alienElement = document.getElementById('alien');
 
-// Funksioni për të ndryshuar pozitat e alienit
-function moveAlien() {
-    const maxX = window.innerWidth - alienElement.clientWidth;
-    const maxY = window.innerHeight - alienElement.clientHeight;
-    const randomX = Math.floor(Math.random() * maxX);
-    const randomY = Math.floor(Math.random() * maxY);
-    alienElement.style.left = `${randomX}px`;
-    alienElement.style.top = `${randomY}px`;
+const maxLevel = 10;
+let currentLevel = 1;
+
+// Funksioni për të ndihmuar alienin të evoluojë
+function evolveAlien() {
+    if (currentLevel < maxLevel) {
+        currentLevel++;
+        alienElement.className = `alien-stage-${currentLevel}`;
+        score++;
+        scoreElement.textContent = `Score: ${score}`;
+    } else {
+        alert("Alien ka arritur nivelin maksimal! Ju jeni një master!");
+    }
 }
 
 // Ngjarja për klikimin e butonit
 tapButton.addEventListener('click', () => {
-    score++;
-    scoreElement.textContent = `Score: ${score}`;
-    moveAlien();
+    evolveAlien();
 });
-
-// Fillimi i lojës
-moveAlien();
